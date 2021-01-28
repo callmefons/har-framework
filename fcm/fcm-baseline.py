@@ -5,7 +5,6 @@ import requests
 import sys
 import pandas as pd
 
-
 api_key = str(sys.argv[5]) 
 api_url = 'https://fcm.googleapis.com/fcm/send'
 headers = {'Content-Type': 'application/json',
@@ -96,6 +95,3 @@ for user in users:
         print(data)
         response = requests.post(api_url, headers=headers, json=data)
         print(response.text)
-
-
-# In[ ]:

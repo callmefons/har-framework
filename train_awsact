@@ -1,0 +1,22 @@
+#!/bin/sh
+
+cd /home/ubuntu/eneact/
+
+# read environment variables for AWS from EC2 tags and set
+. ./script/setenv_aws.sh
+
+app=${DB_NAME}
+
+date=$(date '+%Y-%m-%d')
+hour=$(date '+%H') # by hour
+
+type=acc
+
+time recognition/feature_bq.sh ${app}
+#time Rscript recognition/feature_bq.R ${app} -a mysql -D ${DB_NAME} -H ${DB_HOSTNAME} -U ${DB_USERNAME} -P ${DB_PASSWORD}
+
+time Rscript recognition/train_sensor.R ${app} -a mysql -D ${DB_NAME} -H ${DB_HOSTNAME} -U ${DB_USERNAME} -P ${DB_PASSWORD}
+
+time Rscript recognition/train_label.R ${app} -a mysql -D ${DB_NAME} -H ${DB_HOSTNAME} -U ${DB_USERNAME} -P ${DB_PASSWORD}
+
+date

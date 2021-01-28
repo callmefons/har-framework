@@ -1,0 +1,2 @@
+# m h  dom mon dow   command
+50 * * * * cd /home/ubuntu/eneact; /bin/bash -l script/train_awsact >> log/cron.log 2>&1
